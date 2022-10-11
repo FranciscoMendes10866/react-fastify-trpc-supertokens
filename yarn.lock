@@ -3767,11 +3767,6 @@ use-sidecar@^1.1.2:
     detect-node-es "^1.1.0"
     tslib "^2.0.0"
 
-usehooks-ts@^2.7.2:
-  version "2.7.2"
-  resolved "https://registry.yarnpkg.com/usehooks-ts/-/usehooks-ts-2.7.2.tgz#5b1c166153f59fc63ae5408102be53608103c1d5"
-  integrity sha512-DeLqSnGg9VvpwPZA+6lKVURJKM9EBu7bbIXuYclQ9COO3w4lacnJa0uP0iJbC/lAmY7GlmPinjZfGNNmDTlUpg==
-
 uuid@^8.3.2:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
