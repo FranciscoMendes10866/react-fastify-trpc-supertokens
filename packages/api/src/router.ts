@@ -26,9 +26,11 @@ const isAuthenticated = t.middleware(async ({ ctx, next }) => {
 const authenticatedProcedure = t.procedure.use(isAuthenticated);
 
 export const router = t.router({
-  getPosts: authenticatedProcedure.query(async () => {
+  getPosts: authenticatedProcedure.query(async ({ ctx }) => {
     const postRepository = dataSource.getRepository(Post);
-    return await postRepository.find();
+    return await postRepository.find({
+      where: { authorId: ctx.session.userId },
+    });
   }),
   getPostById: authenticatedProcedure
     .input(z.object({ postId: z.string().uuid() }))
@@ -43,16 +45,16 @@ export const router = t.router({
       z.object({
         title: z.string(),
         content: z.string(),
-        authorId: z.string().uuid(),
       })
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
       const postRepository = dataSource.getRepository(Post);
 
       const postInstance = new Post();
       postInstance.title = input.title;
       postInstance.content = input.content;
-      postInstance.authorId = input.authorId;
+      postInstance.authorId = ctx.session.userId;
+      postInstance.isPublished = true;
 
       return await postRepository.save(postInstance);
     }),

@@ -1,20 +1,26 @@
-import { useCallback } from "react";
-import Session from "supertokens-web-js/recipe/session";
-import { useNavigate } from "react-router-dom";
-import { Button } from '@chakra-ui/react'
+import { Box, SimpleGrid } from "@chakra-ui/react";
+
+import { Navbar } from "../components/Navbar";
+import { SubmitPostForm } from "../components/SubmitPostForm";
+import { PostCard } from "../components/PostCard";
+
+import { trpc } from "../utils/trpc";
 
 export const Dashboard = () => {
-  const navigate = useNavigate();
-
-  const logoutHandler = useCallback(async () => {
-    await Session.signOut();
-    navigate("/");
-  }, []);
+  const getPosts = trpc.getPosts.useQuery();
 
   return (
     <div>
-      Dashboard Page
-      <Button variant="solid" onClick={logoutHandler}>Logout</Button>
+      <Navbar />
+      <SubmitPostForm />
+
+      <Box px={8}>
+        <SimpleGrid columns={4} spacing={4} py={12}>
+          {getPosts.data?.map((elm) => (
+            <PostCard key={elm.id} {...elm} />
+          ))}
+        </SimpleGrid>
+      </Box>
     </div>
   );
 };

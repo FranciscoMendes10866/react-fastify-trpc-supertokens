@@ -1,7 +1,7 @@
 {
   "name": "@monorepo/api",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/router",
   "license": "MIT",
   "scripts": {
     "dev": "tsnd --respawn --transpile-only src/main.ts",
