@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  ButtonGroup,
   Container,
   Flex,
   Text,
@@ -10,11 +9,14 @@ import { useCallback } from "react";
 import Session from "supertokens-web-js/recipe/session";
 import { useNavigate } from "react-router-dom";
 
+import { emitter } from "../App";
+
 export const Navbar = () => {
   const navigate = useNavigate();
 
   const logoutHandler = useCallback(async () => {
     await Session.signOut();
+    emitter.emit("sign-out-evt");
     navigate("/");
   }, []);
 

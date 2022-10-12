@@ -1,7 +1,8 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
+import { createNanoEvents } from "nanoevents";
 
 import { Dashboard } from "./pages/Dashboard";
 import { SignUp } from "./pages/SignUp";
@@ -9,6 +10,8 @@ import { SignIn } from "./pages/SignIn";
 
 import { RequireAuth } from "./components/RequireAuth";
 import { trpc } from "./utils/trpc";
+
+export const emitter = createNanoEvents();
 
 export const App = () => {
   const queryClient = useMemo(() => new QueryClient(), []);
@@ -24,6 +27,12 @@ export const App = () => {
       }),
     []
   );
+
+  useEffect(() => {
+    return emitter.on("sign-out-evt", () => {
+      queryClient.clear();
+    });
+  }, [queryClient]);
 
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
