@@ -3,6 +3,8 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import Session from "supertokens-web-js/recipe/session";
 import { Spinner, Box } from "@chakra-ui/react";
 
+import { emitter } from "../utils/emitter";
+
 export const RequireAuth = () => {
   const [hasSession, setHasSession] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -33,6 +35,8 @@ export const RequireAuth = () => {
   }
 
   if (!hasSession) {
+    emitter.emit("sign-out-evt");
+
     return <Navigate to={{ pathname: "/" }} state={{ location }} replace />;
   }
 

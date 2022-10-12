@@ -69,6 +69,7 @@ export const SubmitPostForm = () => {
               )}
             />
           </Box>
+
           <Box w={{ sm: "full", md: "400px" }}>
             <Controller
               name="content"
@@ -78,6 +79,7 @@ export const SubmitPostForm = () => {
               )}
             />
           </Box>
+
           <Button variant="solid" colorScheme="teal" size="md" type="submit">
             Add Post
           </Button>

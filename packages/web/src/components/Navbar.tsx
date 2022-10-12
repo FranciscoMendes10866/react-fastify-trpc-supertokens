@@ -9,7 +9,7 @@ import { useCallback } from "react";
 import Session from "supertokens-web-js/recipe/session";
 import { useNavigate } from "react-router-dom";
 
-import { emitter } from "../App";
+import { emitter } from "../utils/emitter";
 
 export const Navbar = () => {
   const navigate = useNavigate();
